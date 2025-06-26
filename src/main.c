@@ -1,7 +1,47 @@
 #include <ncurses.h>
+#include <menu.h>
 
+#define ARRAY_SIZE(a) (sizeof(a) / sizeof(a[0]))
 int main() {
-    int choice;
+ ITEM *items[3]; //2 OPTIONS + 1 NULL TERMINATOR
+ MENU *menu;
+ int c;
+
+  //Option labels
+  char *choices[] = {
+    "Restore Power",
+    "Exit",
+    NULL
+  }
+
+    initscr();
+    cbreak();
+    noecho();
+    keypad(stdscr,TRUE);
+
+    //Create items
+    for (int i = 0; choices[i]; i++) {
+        items[i] = new_item(choices[i], "");
+    }
+    items[2] = (ITEM *)NULL;
+
+    //Create menu
+    menu = new_menu((ITEM **)items);
+    post_menu(menu);
+    refresh();
+
+    while ((c = getch()) != '\n') {
+    switch (c) {
+    case KEY_DOWN
+      menu_driver(menu,REQ_DOWN_ITEM);
+      break;
+    case KEY_UP;
+      menu_driver(menu,REQ_UP_ITEM);
+      break;
+      }
+    }
+
+  int choice;
 
     initscr();              // Start ncurses
     noecho();               // Don't echo typed characters
