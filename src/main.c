@@ -1,46 +1,26 @@
-#include <stdio.h>
+#include <ncurses.h>
 
 int main() {
-  int choice;
+    int choice;
 
-  printf("Jurassic Park systems online.\n");
+    initscr();              // Start ncurses
+    noecho();               // Don't echo typed characters
+    cbreak();               // React to keys instantly
+    keypad(stdscr, TRUE);   // Enable arrow keys
+
+    mvprintw(1,2, "Jurassic Park: Systems online AUCILARY POWER ONLY \n");
+    mvprintw(2,2, "WARNING: Security systems DISABLED");
+    mvprintw(3, 4, "1. Restore Power");
+    mvprintw(4, 4, "2. Exit");
+    mvprintw(6, 2, "Enter your choice: ");
+
+    echo(); // Turn echo back on so we can type
+    scanw("%d", &choice);  // Get input using ncurses
+
+    endwin();               // End ncurses mode
+
+    // Print choice result normally after ncurses
+    printf("You chose: %d\n", choice);
     return 0;
-  printf("STARTUP AB(0)");
-//First column
-  printf("Security Main");
-  printf("Monitor Main");
-  printf("SetGrids DNL");
-  printf("Critical Locks");
-  printf("Control Passthru");
-//Second column
-  printf("Monitor Main");
-  printf("View VBB");
-  printf("TeleCom RSD");
-//Third column
-  printf("Command Main"); //Important needs distinct user feedback
-  printf("Access TNL"); //Important needs distcint user feedback
-  printf("Reset Revert");
-  printf("Template Main");
-//Fourth column
-  printf("Electrical Main");
-  printf("Heating Cooling");
-  printf("Emergency Illumin");
-  printf("FNCC Params");
-
-  printf("STARTUP CN/D");
-//Fifth column
-  printf("Hydraulic Main");
-  printf("Door Fold Interface");
-  printf("GAS/VLD Main II");
-  printf("Explosion Fire Hzrd");
-//Sixth column
-  printf("Master Main");
-  printf("SAAD-Rnd");
-  printf("Common Interface");
-  printf("Schematic Main");
-//Seventh column
-  printf("Zoology Main"); //Important needs distinct user feedback
-  printf("Repair Storage");
-  printf("Status Main"); //Important needs distinct user feedback
-  printf("Safety/Health");
 }
+
