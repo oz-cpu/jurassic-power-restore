@@ -12,7 +12,7 @@ int main() {
     "Restore Power",
     "Exit",
     NULL
-  }
+  };
 
     initscr();
     cbreak();
@@ -31,16 +31,25 @@ int main() {
     refresh();
 
     while ((c = getch()) != '\n') {
-    switch (c) {
-    case KEY_DOWN
-      menu_driver(menu,REQ_DOWN_ITEM);
-      break;
-    case KEY_UP;
-      menu_driver(menu,REQ_UP_ITEM);
-      break;
+      switch (c) {
+        case KEY_DOWN:
+          menu_driver(menu,REQ_DOWN_ITEM);
+          break;
+        case KEY_UP:
+         menu_driver(menu,REQ_UP_ITEM);
+          break;
       }
     }
 
+    ITEM *selected = current_item(menu);
+    unpost_menu(menu);
+    endwin();
+
+    printf("You selected %s\n", item_name(selected));
+    return 0;
+  }
+
+  /*
   int choice;
 
     initscr();              // Start ncurses
@@ -62,5 +71,5 @@ int main() {
     // Print choice result normally after ncurses
     printf("You chose: %d\n", choice);
     return 0;
-}
+*/
 
